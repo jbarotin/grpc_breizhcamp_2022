@@ -1,4 +1,4 @@
-syntax = "proto2";
+syntax = "proto3";
 
 package breizhcamp;
 
@@ -19,7 +19,7 @@ message Person {
 
   message PhoneNumber {
     optional string number = 1;
-    optional PhoneType type = 2 [default = HOME];
+    optional PhoneType type = 2;
   }
 
   repeated PhoneNumber phones = 4;
@@ -30,7 +30,7 @@ message AddressBook {
 }
 
 message MessageBreizhcamp {
-  required int32 green = 1;
-  required string it = 2;
-  required int32 isBeautifull = 3;
+  int32 green = 1;
+  string it = 2;
+  int32 isBeautifull = 3;
 }

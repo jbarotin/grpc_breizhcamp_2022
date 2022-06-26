@@ -4,8 +4,10 @@ import breizhcamp_pb2_grpc
 import random
 
 with grpc.insecure_channel("127.0.0.1:56000") as channel:
+
     stub = breizhcamp_pb2_grpc.breizhcampStub(channel)
     request = breizhcamp_pb2.CreateSessionRequest(userName="user1")
+
     response = stub.CreateSession(request)
     token = response.token
     found = False;
@@ -24,3 +26,5 @@ with grpc.insecure_channel("127.0.0.1:56000") as channel:
             min = number
 
         number = int((max - min) / 2) + min
+
+    print(f"found {number}")
