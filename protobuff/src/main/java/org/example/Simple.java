@@ -19,7 +19,7 @@ public class Simple
 
         MessageBreizhcamp bzh = MessageBreizhcamp.newBuilder().setGreen(1)
                 .setIt("yes")
-                .setIsBeautifull(2).build();
+                .setIsBeautiful(2).build();
 
 
         try {

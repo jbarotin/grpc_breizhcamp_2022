@@ -32,5 +32,5 @@ message AddressBook {
 message MessageBreizhcamp {
   int32 green = 1;
   string it = 2;
-  int32 isBeautifull = 3;
+  int64 isBeautiful = 3;
 }
