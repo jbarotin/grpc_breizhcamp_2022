@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class BreizhcampGRPCSeriveIntegrationTest
@@ -34,16 +35,21 @@ public class BreizhcampGRPCSeriveIntegrationTest
     @Test
     public void tryToExecuteBreizhcampService()
     {
-        ManagedChannel channel = ManagedChannelBuilder.forTarget("localhost:"+TEST_PORT)
+        ManagedChannel channel = ManagedChannelBuilder.forTarget("localhost:" + TEST_PORT)
                 .usePlaintext()
                 .build();
         breizhcampGrpc.breizhcampBlockingStub stub = breizhcampGrpc.newBlockingStub(channel);
+        try {
 
-        CreateSessionRequest createSessionRequest = CreateSessionRequest.newBuilder().setUserName("test").build();
+            CreateSessionRequest createSessionRequest = CreateSessionRequest.newBuilder().setUserName("test").build();
 
-        CreateSessionReply reply = stub.createSession(createSessionRequest);
+            CreateSessionReply reply = stub.createSession(createSessionRequest);
+            assertNotEquals(reply.getToken(),null);
 
-        final GuessANumberRequest guessANumberRequest = GuessANumberRequest.newBuilder().setNumber(105000).setToken(reply.getToken()).build();
-        assertThrows(io.grpc.StatusRuntimeException.class, () -> stub.guessANumber(guessANumberRequest));
+            final GuessANumberRequest guessANumberRequest = GuessANumberRequest.newBuilder().setNumber(105000).setToken(reply.getToken()).build();
+            assertThrows(io.grpc.StatusRuntimeException.class, () -> stub.guessANumber(guessANumberRequest));
+        }finally {
+            channel.shutdownNow();
+        }
     }
 }

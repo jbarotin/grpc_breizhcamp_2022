@@ -89,7 +89,7 @@ public class BreizcampGRPCService extends breizhcampGrpc.breizhcampImplBase {
 				.addService(breizcampGRPCService)
 				.build()
 				.start();
-
+		log.info("GuesssANumber server started");
 		Runtime.getRuntime().addShutdownHook(new Thread() {
 			@Override
 			public void run() {
